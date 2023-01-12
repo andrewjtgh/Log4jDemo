@@ -1,0 +1,27 @@
+<project name="Log4jDemo" default="compile" basedir=".">
+	<property name="src" location="src" />
+	<property name="config" location="config" />
+	<property name="build" location="build" />
+
+	<target name="clean">
+		<delete dir="${build}" />
+
+		<mkdir dir="${build}" />
+	</target>
+	<target name="compile" depends="clean">
+		<javac srcdir="{src}" destdir="${build}">
+			<classpath>
+				<pathelement path="$classpath}" />
+				<fileset dir="lib">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+		<copy todir="${build}\lib" overwrite="true">
+			<fileset dir="lib" />
+		</copy>
+
+		<copy file="config\run.bat" todir="${build}" overwrite="true" />
+		<copy file="${src}\log4j.properties" todir="${builld}" overwrite="true" />
+	</target>
+</project>
