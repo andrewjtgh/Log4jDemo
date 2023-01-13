@@ -1,4 +1,4 @@
-<project name="Log4jDemo" default="compile" basedir=".">
+<project name="demo1" default="compile" basedir=".">
 	<property name="src" location="src" />
 	<property name="config" location="config" />
 	<property name="build" location="build" />
@@ -9,7 +9,7 @@
 		<mkdir dir="${build}" />
 	</target>
 	<target name="compile" depends="clean">
-		<javac srcdir="{src}" destdir="${build}">
+		<javac includeantruntime="false" srcdir="${src}" destdir="${build}">
 			<classpath>
 				<pathelement path="$classpath}" />
 				<fileset dir="lib">
@@ -22,6 +22,17 @@
 		</copy>
 
 		<copy file="config\run.bat" todir="${build}" overwrite="true" />
-		<copy file="${src}\log4j.properties" todir="${builld}" overwrite="true" />
+		<copy file="${src}\log4j.properties" todir="${build}" overwrite="true" />
+	</target>
+
+	<target name="test" depends="compile">
+		<junit printsummary="yes">
+			<formatter type="plain" />
+			<test name="tips.java.demo.Log4jDemoTest" />
+			<classpath location="lib/junit-4.11.jar" />
+			<classpath>
+				<pathelement location="classes" />
+			</classpath>
+		</junit>
 	</target>
 </project>
